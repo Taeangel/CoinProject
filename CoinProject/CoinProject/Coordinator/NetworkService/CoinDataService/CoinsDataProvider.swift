@@ -20,7 +20,6 @@ extension Provider {
     
     var request = URLRequest(url: coingeckoUrl)
     request.httpMethod = "GET"
-
     return requestPublisher(request)
   }
 }

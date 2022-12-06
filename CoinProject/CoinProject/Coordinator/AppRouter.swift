@@ -10,10 +10,13 @@ import EventKit
 
 enum checkyRouter: NavigationRouter {
   case main
+  case detail(CoinModel)
   
   var transition: NavigationTranisitionStyle {
     switch self {
     case .main:
+      return .push
+    case .detail:
       return .push
     }
   }
@@ -23,6 +26,8 @@ enum checkyRouter: NavigationRouter {
     switch self {
     case .main:
       MainView(vm: MainCoinViewModel(coinsDataService: CoinsDataService()))
+    case .detail(let coin):
+      DetailCoinView(coin: coin)
     }
   }
 }
