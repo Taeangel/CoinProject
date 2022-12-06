@@ -11,22 +11,22 @@ import Combine
 protocol CoinsDataFetchable {
   func getCoins()
   var coins: [CoinModel] { get }
-}
-
-class CoinsDataService: CoinsDataFetchable {
-  @Published var coins: [CoinModel] = []
-  private var coinSubscription = Set<AnyCancellable>()
+ }
   
-  init() {
-    getCoins()
+  class CoinsDataService: CoinsDataFetchable {
+    @Published var coins: [CoinModel] = []
+    private var coinSubscription = Set<AnyCancellable>()
+    
+    init() {
+      getCoins()
+    }
+    
+    func getCoins() {
+      Provider.shared.getCoins()
+        .receive(on: DispatchQueue.main)
+        .sink(receiveCompletion: Provider.shared.handleCompletion) { [weak self] returnCoins in
+          self?.coins = returnCoins
+        }
+        .store(in: &coinSubscription)
+    }
   }
-  
-  func getCoins() {
-    Provider.shared.getCoins()
-      .receive(on: DispatchQueue.main)
-      .sink(receiveCompletion: Provider.shared.handleCompletion) { [weak self] returnCoins in
-        self?.coins = returnCoins
-      }
-      .store(in: &coinSubscription)
-  }
-}
