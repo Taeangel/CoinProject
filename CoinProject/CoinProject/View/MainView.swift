@@ -25,10 +25,22 @@ struct MainView: View {
       
       SearchBarView(seachText: $vm.searchText)
 
-      Spacer()
-      
+      allCoinsList
     }
     .padding()
+  }
+  
+  private var allCoinsList: some View {
+    List {
+      ForEach(vm.coins) { coin in
+        CoinRowView(coin: coin, showHoldingColumn: false)
+          .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+          .onTapGesture {
+            
+          }
+      }
+    }
+    .listStyle(PlainListStyle())
   }
 }
 
