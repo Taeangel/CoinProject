@@ -9,4 +9,10 @@ import Foundation
 
 class MainCoinViewModel: ObservableObject {
   @Published var searchText: String = ""
+  
+  let coinsDataService: CoinsDataFetchable
+  
+  init(coinsDataService: CoinsDataFetchable) {
+    self.coinsDataService = coinsDataService
+  }
 }

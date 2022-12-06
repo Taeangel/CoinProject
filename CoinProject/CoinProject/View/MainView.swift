@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
-  @ObservedObject var vm: MainCoinViewModel = MainCoinViewModel()
-  let asf = CoinDataService()
+  @ObservedObject var vm: MainCoinViewModel
+  @EnvironmentObject var coordinator: Coordinator<checkyRouter>
+  
   var body: some View {
     VStack(alignment: .leading) {
       Text("코인")
@@ -33,6 +34,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    MainView()
+    MainView(vm: MainCoinViewModel(coinsDataService: CoinsDataService()))
   }
 }

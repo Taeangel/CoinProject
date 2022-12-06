@@ -22,7 +22,7 @@ enum checkyRouter: NavigationRouter {
   func view() -> some View {
     switch self {
     case .main:
-      MainView()
+      MainView(vm: MainCoinViewModel(coinsDataService: CoinsDataService()))
     }
   }
 }
