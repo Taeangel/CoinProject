@@ -31,47 +31,14 @@ struct Provider {
     case .finished:
       break
     case .failure(let error):
-      print("\(error)")
       print(error.localizedDescription)
     }
   }
 }
 
-enum CoinError: Error, Equatable {
-  static func == (lhs: CoinError, rhs: CoinError) -> Bool {
-    switch (lhs, rhs) {
-    case (.network(let lhsError), .network(let rhsError)):
-      return ErrorUtility.areEqual(lhsError, rhsError)
-    case (.decoding(let lhsError), .decoding(let rhsError)):
-      return ErrorUtility.areEqual(lhsError, rhsError)
-    default: return false
-    }
-  }
-  
-  case network(error: Error)
-  case decoding(error: Error)
-}
 
-class ErrorUtility {
-  public static func areEqual(_ lhs: Error, _ rhs: Error) -> Bool {
-    return lhs.reflectedString == rhs.reflectedString
-  }
-}
 
-public extension Error {
-  var reflectedString: String {
-    return String(reflecting: self)
-  }
 
-  func isEqual(to: Self) -> Bool {
-    return reflectedString == to.reflectedString
-  }
-}
 
-public extension NSError {
-  func isEqual(to: NSError) -> Bool {
-    let lhs = self as Error
-    let rhs = to as Error
-    return isEqual(to) && lhs.reflectedString == rhs.reflectedString
-  }
-}
+
+
