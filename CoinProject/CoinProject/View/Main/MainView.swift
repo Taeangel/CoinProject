@@ -13,15 +13,13 @@ struct MainView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      titleView
-      
-      dataView
+      dataView.padding(.leading)
       
       SearchBarView(seachText: $vm.searchText)
 
       allCoinsList
+        
     }
-    .padding()
   }
 }
 

@@ -8,14 +8,16 @@
 import SwiftUI
 import Kingfisher
 
-struct CoinImageView: View {
-  let coin: CoinModel
-  init(coin: CoinModel) {
-    self.coin = coin
+struct ImageView: View {
+  let imageDownloadable: ImageDownloadableModel
+  
+  init(url: ImageDownloadableModel) {
+    self.imageDownloadable = url
   }
+  
   var body: some View {
     ZStack {
-      KFImage(coin.coinImageURL)
+      KFImage(imageDownloadable.imageURL)
         .resizable()
         .scaledToFit()
     }
@@ -24,6 +26,6 @@ struct CoinImageView: View {
 
 struct CoinImageView_Previews: PreviewProvider {
   static var previews: some View {
-    CoinImageView(coin: dev.coin)
+    ImageView(url: dev.coin)
   }
 }

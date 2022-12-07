@@ -19,7 +19,7 @@ struct CoinRowView: View {
       
       Spacer()
       
-      ChartView(coin: coin)
+      ListChartView(sevenDaysHaveModel: coin)
         .padding(.leading, 20)
       
       rightCoulmn
@@ -54,8 +54,8 @@ extension CoinRowView {
         .foregroundColor(Color.theme.secondaryText)
         .frame(minWidth: 30)
       
-      CoinImageView(coin: coin)
-        .frame(width: 20)
+      ImageView(url: coin)
+        .frame(width: 30)
       
       Text(coin.symbol.uppercased())
         .font(.headline)

@@ -17,7 +17,7 @@ struct DetailCoinView: View {
   
   var body: some View {
     VStack{
-      Text("\(vm.coin.name)")
+      DetailChartView(sevenDaysHaveModel: vm.coin)
     }
   }
 }

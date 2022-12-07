@@ -7,25 +7,18 @@
 
 import SwiftUI
 
-struct ChartView: View {
+struct ListChartView: View {
   private let data: [Double]
   private let maxY: Double
   private let minY: Double
   private let lineColor: Color
-  private let startingDate: Date
-  private let endingDate: Date
   
-  init(coin: CoinModel) {
-    self.data = coin.sparklineIn7D?.price ?? []
+  init(sevenDaysHaveModel: SevenDaysHaveable) {
+    self.data = sevenDaysHaveModel.sevenDatas
     maxY = data.max() ?? 0
     minY = data.min() ?? 0
     
-    let priceChange = (data.last ?? 0) - (data.first ?? 0)
-    
-    lineColor = priceChange > 0 ? Color.theme.green : Color.theme.red
-    
-    endingDate = Date(coinGeckoString: coin.lastUpdated ?? "")
-    startingDate = endingDate.addingTimeInterval(-7*24*60*60)
+    lineColor = sevenDaysHaveModel.priceChange > 0 ? Color.theme.green : Color.theme.red
   }
   
   var body: some View {
@@ -43,11 +36,11 @@ struct ChartView: View {
 
 struct ChartView_Previews: PreviewProvider {
   static var previews: some View {
-    ChartView(coin: dev.coin)
+    ListChartView(sevenDaysHaveModel: dev.coin)
   }
 }
 
-extension ChartView {
+extension ListChartView {
   private var chartView: some View {
     GeometryReader { geometry in
       Path { path in

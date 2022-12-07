@@ -29,5 +29,4 @@ class MainCoinViewModel: ObservableObject {
       }
       .store(in: &cancellalbes)
   }
-  
 }
