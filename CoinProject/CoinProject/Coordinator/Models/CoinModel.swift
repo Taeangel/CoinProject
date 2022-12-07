@@ -95,6 +95,18 @@ struct CoinModel: Identifiable, Codable, Equatable {
   var rank: Int {
     return Int(marketCapRank ?? 0)
   }
+  
+  var coinImageURL: URL {
+    return URL(string: image) ?? URL(fileURLWithPath: "")
+  }
+  
+  var coingeckoCoinDetail: URL {
+    guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/\(id)?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false") else {
+      return URL(fileURLWithPath: "")
+    }
+    return url
+  }
+  
 }
 
 struct SparklineIn7D: Codable, Equatable {
