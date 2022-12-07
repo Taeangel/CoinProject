@@ -12,7 +12,6 @@ import Foundation
  */
 
 protocol ImageDownloadableModel {
-  var image: String { get }
   var imageURL: URL { get }
 }
 
@@ -21,6 +20,8 @@ protocol SevenDaysHaveable {
   var startPrice: Double { get }
   var endPrice: Double { get }
   var priceChange: Double { get }
+  var maxPrice: Double { get }
+  var minPrice: Double { get }
 }
 
 struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveable {
@@ -134,6 +135,14 @@ struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveab
   
   var priceChange: Double {
     return (sparklineIn7D?.price?.first ?? 0) - (sparklineIn7D?.price?.last ?? 0)
+  }
+  
+  var maxPrice: Double {
+    return sparklineIn7D?.price?.max() ?? 0
+  }
+  
+  var minPrice: Double {
+    return sparklineIn7D?.price?.min() ?? 0
   }
 }
 
