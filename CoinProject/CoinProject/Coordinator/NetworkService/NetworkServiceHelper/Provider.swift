@@ -25,7 +25,7 @@ struct Provider {
       .mapError { .decoding(error: $0) }
       .eraseToAnyPublisher()
   }
-  
+
   func handleCompletion(completion: Subscribers.Completion<CoinError>) {
     switch completion {
     case .finished:
