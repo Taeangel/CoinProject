@@ -18,7 +18,9 @@ struct CoinRowView: View {
       leftColumn
       
       Spacer()
+      
       ChartView(coin: coin)
+        .padding(.leading, 20)
       
       rightCoulmn
       
@@ -39,7 +41,6 @@ struct CoinRowView_Previews: PreviewProvider {
       CoinRowView(coin: dev.coin, showHoldingColumn: true)
         .previewLayout(.sizeThatFits)
         .preferredColorScheme(.dark)
-
     }
   }
 }
@@ -52,7 +53,10 @@ extension CoinRowView {
         .font(.caption)
         .foregroundColor(Color.theme.secondaryText)
         .frame(minWidth: 30)
-
+      
+      CoinImageView(coin: coin)
+        .frame(width: 20)
+      
       Text(coin.symbol.uppercased())
         .font(.headline)
         .padding(.leading, 6)

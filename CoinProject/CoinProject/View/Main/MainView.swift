@@ -13,21 +13,38 @@ struct MainView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text("코인")
-        .font(.headline)
-        .fontWeight(.heavy)
-        .foregroundColor(Color.theme.accent)
+      titleView
       
-      Text("\(Date().dateKorean)")
-        .font(.headline)
-        .fontWeight(.bold)
-        .foregroundColor(Color.theme.accent)
+      dataView
       
       SearchBarView(seachText: $vm.searchText)
 
       allCoinsList
     }
     .padding()
+  }
+}
+
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    MainView(vm: MainCoinViewModel(coinsDataService: CoinsDataService()))
+  }
+}
+
+extension MainView {
+  
+  private var titleView: some View {
+    Text("코인")
+      .font(.headline)
+      .fontWeight(.heavy)
+      .foregroundColor(Color.theme.accent)
+  }
+  
+  private var dataView: some View {
+    Text("\(Date().dateKorean)")
+      .font(.headline)
+      .fontWeight(.bold)
+      .foregroundColor(Color.theme.accent)
   }
   
   private var allCoinsList: some View {
@@ -41,11 +58,5 @@ struct MainView: View {
       }
     }
     .listStyle(PlainListStyle())
-  }
-}
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    MainView(vm: MainCoinViewModel(coinsDataService: CoinsDataService()))
   }
 }
