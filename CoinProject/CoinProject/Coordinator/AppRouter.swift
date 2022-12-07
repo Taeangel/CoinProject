@@ -8,7 +8,7 @@
 import SwiftUI
 import EventKit
 
-enum checkyRouter: NavigationRouter {
+enum coinAppRouter: NavigationRouter {
   case main
   case detail(CoinModel)
   
