@@ -107,20 +107,27 @@ struct CoinDetailModel: Codable {
   let id, symbol, name: String?
   let blockTimeInMinutes: Int?
   let hashingAlgorithm: String?
-  let welcomeDescription: Description?
+  let image: CoinImage?
   let links: Links?
   
   enum CodingKeys: String, CodingKey {
     case id, symbol, name
     case blockTimeInMinutes = "block_time_in_minutes"
     case hashingAlgorithm = "hashing_algorithm"
-    case welcomeDescription = "description"
     case links
+    case image
   }
   
-  var readableDescription: String? {
-    return welcomeDescription?.en?.removingHTMLOccurances
+  var imageURL: URL {
+    guard let imageURL = URL(string: image?.small ?? "") else {
+      return URL(fileURLWithPath: "")
+    }
+    return imageURL
   }
+}
+
+struct CoinImage: Codable {
+  let thumb, small, large: String?
 }
 
 struct Links: Codable {
@@ -134,9 +141,5 @@ struct Links: Codable {
     case subredditURL = "subreddit_url"
     case blockchainSite = "blockchain_site"
   }
-}
-
-struct Description: Codable {
-  let en: String?
 }
 
