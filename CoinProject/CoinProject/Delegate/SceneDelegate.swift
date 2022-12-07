@@ -9,7 +9,7 @@ import SwiftUI
 
 final class SceneDelegate: NSObject, UIWindowSceneDelegate {
   
-  private let coordinator: Coordinator<checkyRouter> = .init(startingRoute: .main)
+  private let coordinator: Coordinator<coinAppRouter> = .init(startingRoute: .main)
   
   var window: UIWindow?
   
