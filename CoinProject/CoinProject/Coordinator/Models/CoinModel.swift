@@ -11,7 +11,20 @@ import Foundation
  URL : https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h
  */
 
-struct CoinModel: Identifiable, Codable, Equatable {
+protocol ImageDownloadableModel {
+  var image: String { get }
+  var imageURL: URL { get }
+}
+
+protocol SevenDaysHaveable {
+  var sevenDatas: [Double] { get }
+  var startPrice: Double { get }
+  var endPrice: Double { get }
+  var priceChange: Double { get }
+}
+
+struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveable {
+  
   let id, symbol, name: String
   let image: String
   let currentPrice: Double
@@ -96,7 +109,7 @@ struct CoinModel: Identifiable, Codable, Equatable {
     return Int(marketCapRank ?? 0)
   }
   
-  var coinImageURL: URL {
+  var imageURL: URL {
     return URL(string: image) ?? URL(fileURLWithPath: "")
   }
   
@@ -105,6 +118,22 @@ struct CoinModel: Identifiable, Codable, Equatable {
       return URL(fileURLWithPath: "")
     }
     return url
+  }
+  
+  var sevenDatas: [Double] {
+    return sparklineIn7D?.price ?? [0]
+  }
+  
+  var startPrice: Double {
+    return sparklineIn7D?.price?.first ?? 0
+  }
+  
+  var endPrice: Double {
+    return sparklineIn7D?.price?.last ?? 0
+  }
+  
+  var priceChange: Double {
+    return (sparklineIn7D?.price?.first ?? 0) - (sparklineIn7D?.price?.last ?? 0)
   }
 }
 
