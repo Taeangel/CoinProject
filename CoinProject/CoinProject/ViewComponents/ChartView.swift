@@ -36,8 +36,6 @@ struct ChartView: View {
         chartStandardView
           .frame(height: 50)
       }
-     
-      
     }
     .font(.caption)
   }
@@ -74,12 +72,16 @@ extension ChartView {
   private var chartStandardView: some View {
     GeometryReader { geometry in
       Path { path in
+        guard let startingPrice = data.first else {
+          return
+        }
+        
         for index in data.indices {
           let xPosition = geometry.size.width / CGFloat(data.count) * CGFloat(index + 1)
           
           let yAxis = maxY - minY
           
-          let yPosition = (1 - CGFloat((data.first! - minY) / yAxis )) * geometry.size.height
+          let yPosition = (1 - CGFloat((startingPrice - minY) / yAxis )) * geometry.size.height
           
           if index == 0 {
             path.move(to: CGPoint(x: xPosition, y: yPosition))

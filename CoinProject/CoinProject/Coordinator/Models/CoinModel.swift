@@ -106,7 +106,6 @@ struct CoinModel: Identifiable, Codable, Equatable {
     }
     return url
   }
-  
 }
 
 struct SparklineIn7D: Codable, Equatable {
