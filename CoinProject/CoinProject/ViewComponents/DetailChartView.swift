@@ -19,15 +19,15 @@ struct DetailChartView: View {
   
   init(sevenDaysHaveModel: SevenDaysHaveable) {
     self.data = sevenDaysHaveModel.sevenDatas
-    maxY = data.max() ?? 0
-    minY = data.min() ?? 0
-    
-    lineColor = sevenDaysHaveModel.priceChange > 0 ? Color.theme.green : Color.theme.red
+    maxY = sevenDaysHaveModel.maxPrice
+    minY = sevenDaysHaveModel.minPrice
+    lineColor = sevenDaysHaveModel.priceChange > 0 ? Color.theme.blue : Color.theme.red
   }
   
   var body: some View {
     VStack {
       Text("OneWeek")
+        .frame(maxWidth: .infinity, alignment: .leading)
       
       chartView
         .frame(height: 200)

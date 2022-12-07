@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
   @ObservedObject var vm: MainCoinViewModel
-  @EnvironmentObject var coordinator: Coordinator<checkyRouter>
+  @EnvironmentObject var coordinator: Coordinator<coinAppRouter>
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -18,8 +18,8 @@ struct MainView: View {
       SearchBarView(seachText: $vm.searchText)
 
       allCoinsList
-        
     }
+    .onAppear(perform: UIApplication.shared.hideKeyboard)
   }
 }
 
