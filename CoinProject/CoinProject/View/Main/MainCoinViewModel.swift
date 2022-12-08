@@ -11,11 +11,12 @@ import Combine
 class MainCoinViewModel: ObservableObject {
   @Published var searchText: String = ""
   @Published var coins: [CoinModel] = []
-  @Published var sortOption: SortOption = .holdings
+  @Published var favoriteCoins: [CoinModel] = []
   
-  private let coinsDataService = CoinsDataService()
   private var cancellalbes = Set<AnyCancellable>()
-  var coinDataService = CoinsDataService()
+  private let favoriteCoinDataService = FavoriteCoinDataService()
+  private let coinsDataService = CoinsDataService()
+  private let coinDataService = CoinsDataService()
   
   
   init(coinsDataService: CoinsDataFetchable) {
@@ -31,39 +32,33 @@ class MainCoinViewModel: ObservableObject {
       .store(in: &cancellalbes)
     
     $searchText
-      .combineLatest(coinsDataService.$coins, $sortOption)
-      .map(filterAndSortCoins)
+      .combineLatest(coinsDataService.$coins)
+      .map(filterCoins)
       .sink { [weak self] returnedCoins in
         guard let self = self else { return }
         self.coins = returnedCoins
       }
       .store(in: &cancellalbes)
+    
+    $coins
+      .combineLatest(favoriteCoinDataService.$saveEntities)
+      .map (mapFavoriteCoins)
+      .sink { [weak self] returnerCoin in
+        self?.favoriteCoins = returnerCoin
+      }
+      .store(in: &cancellalbes)
   }
   
-  enum SortOption {
-    case rank, rankReversed, holdings, holdingsReversed, price, priceReversed
+  func updataFavoriteCoin(coin: CoinModel) {
+    favoriteCoinDataService.updateFavoriteCoin(coin: coin)
   }
   
-  private func filterAndSortCoins(text: String, coins: [CoinModel], sort: SortOption) -> [CoinModel] {
-    var filteredCoin = filterCoins(text: text, coins: coins)
-    sortCoins(sort: sort, coins: &filteredCoin)
-    return filteredCoin
-  }
-  
-  private func sortCoins(sort: SortOption, coins: inout [CoinModel]){
-    switch sort {
-    case .rank:
-      coins.sort { $0.rank < $1.rank }
-    case .rankReversed:
-      coins.sort { $0.rank > $1.rank }
-    case .holdings:
-      coins.sort { $0.rank < $1.rank }
-    case .holdingsReversed:
-      coins.sort { $0.rank > $1.rank }
-    case .price:
-      coins.sort { $0.currentPrice > $1.currentPrice }
-    case .priceReversed:
-      coins.sort { $0.currentPrice < $1.currentPrice }
+  private func mapFavoriteCoins(coins: [CoinModel], favoriteCoins: [FavoriteCoin]) -> [CoinModel] {
+    coins.compactMap { coin -> CoinModel? in
+      guard favoriteCoins.first(where: { $0.coinID == coin.id }) != nil else {
+        return nil
+      }
+      return coin.updateHoldings()
     }
   }
   
@@ -82,3 +77,4 @@ class MainCoinViewModel: ObservableObject {
     return filteredCoins
   }
 }
+

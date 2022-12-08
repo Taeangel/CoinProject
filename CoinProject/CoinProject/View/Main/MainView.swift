@@ -10,14 +10,22 @@ import SwiftUI
 struct MainView: View {
   @ObservedObject var vm: MainCoinViewModel
   @EnvironmentObject var coordinator: Coordinator<coinAppRouter>
+  @State private var showFavoriteCoin: Bool = false
   
   var body: some View {
     VStack(alignment: .leading) {
+      
       dataView.padding(.leading)
       
       SearchBarView(seachText: $vm.searchText)
 
-      allCoinsList
+      changefavoriteToButton
+      
+      if showFavoriteCoin {
+        favoriteList
+      } else {
+        allCoinsList
+      }
     }
     .onAppear(perform: UIApplication.shared.hideKeyboard)
   }
@@ -30,6 +38,16 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 extension MainView {
+  private var changefavoriteToButton: some View {
+    Button(action: {
+      showFavoriteCoin.toggle()
+    },
+           label: {
+      Text(
+        showFavoriteCoin ? "toAllCoin" : "toFavoriteCoin"
+      )
+    })
+  }
   
   private var titleView: some View {
     Text("코인")
@@ -48,7 +66,25 @@ extension MainView {
   private var allCoinsList: some View {
     List {
       ForEach(vm.coins) { coin in
-        CoinRowView(coin: coin, showHoldingColumn: false)
+        HStack {
+          CoinRowView(coin: coin)
+            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+            .onTapGesture {
+              coordinator.show(.detail(coin))
+            }
+            .onLongPressGesture {
+              vm.updataFavoriteCoin(coin: coin)
+            }
+        }
+      }
+    }
+    .listStyle(PlainListStyle())
+  }
+  
+  private var favoriteList: some View {
+    List {
+      ForEach(vm.favoriteCoins) { coin in
+        CoinRowView(coin: coin)
           .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
           .onTapGesture {
             coordinator.show(.detail(coin))
@@ -57,4 +93,5 @@ extension MainView {
     }
     .listStyle(PlainListStyle())
   }
+  
 }

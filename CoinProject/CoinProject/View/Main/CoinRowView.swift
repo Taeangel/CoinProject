@@ -9,7 +9,6 @@ import SwiftUI
 struct CoinRowView: View {
   
   let coin: CoinModel
-  let showHoldingColumn: Bool
   
   var body: some View {
     
@@ -33,12 +32,12 @@ struct CoinRowView: View {
 struct CoinRowView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      CoinRowView(coin: dev.coin, showHoldingColumn: true)
+      CoinRowView(coin: dev.coin)
         .previewLayout(.fixed(width: 200, height: 200))
       
-      CoinRowView(coin: dev.coin, showHoldingColumn: false)
+      CoinRowView(coin: dev.coin)
         .previewLayout(.sizeThatFits)
-      CoinRowView(coin: dev.coin, showHoldingColumn: true)
+      CoinRowView(coin: dev.coin)
         .previewLayout(.sizeThatFits)
         .preferredColorScheme(.dark)
     }
@@ -49,11 +48,6 @@ extension CoinRowView {
   
   private var leftColumn: some View {
     HStack(spacing: 0) {
-      Text("\(coin.rank)")
-        .font(.caption)
-        .foregroundColor(Color.theme.secondaryText)
-        .frame(minWidth: 30)
-      
       ImageView(url: coin)
         .frame(width: 30)
       
@@ -61,15 +55,6 @@ extension CoinRowView {
         .font(.headline)
         .padding(.leading, 6)
         .foregroundColor(Color.theme.accent)
-    }
-  }
-  
-  private var centerCoumn: some View {
-      VStack(alignment: .trailing) {
-        Text(coin.currentHoldingsValue.asCurrencyWith2Decimals())
-          .bold()
-        Text((coin.currentHoldings ?? 0).asNumberString())
-          .foregroundColor(Color.theme.accent)
     }
   }
   

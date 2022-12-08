@@ -40,7 +40,6 @@ struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveab
   let lastUpdated: String?
   let sparklineIn7D: SparklineIn7D?
   let priceChangePercentage24HInCurrency: Double?
-  let currentHoldings: Double?
   
   enum CodingKeys: String, CodingKey {
     case id, symbol, name, image
@@ -67,11 +66,10 @@ struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveab
     case lastUpdated = "last_updated"
     case sparklineIn7D = "sparkline_in_7d"
     case priceChangePercentage24HInCurrency = "price_change_percentage_24h_in_currency"
-    case currentHoldings
   }
   
   
-  func updateHoldings(amount: Double) -> CoinModel {
+  func updateHoldings() -> CoinModel {
     return CoinModel(id: id,
                      symbol: symbol,
                      name: name,
@@ -98,14 +96,9 @@ struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveab
                      atlDate: atlDate,
                      lastUpdated: lastUpdated,
                      sparklineIn7D: sparklineIn7D,
-                     priceChangePercentage24HInCurrency: priceChangePercentage24HInCurrency,
-                     currentHoldings: amount)
+                     priceChangePercentage24HInCurrency: priceChangePercentage24HInCurrency)
   }
-  
-  var currentHoldingsValue: Double {
-    return (currentHoldings ?? 0) * currentPrice
-  }
-  
+
   var rank: Int {
     return Int(marketCapRank ?? 0)
   }
