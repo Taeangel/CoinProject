@@ -10,11 +10,22 @@ import Combine
 
 protocol CoinsDataFetchable {
   func getCoins()
-  var coins: [CoinModel] { get }
+  var coins: [CoinModel]? { get }
+  var coinsValue: Published<[CoinModel]?> { get }
+  var coinsPublisher: Published<[CoinModel]?>.Publisher { get }
 }
 
 class CoinsDataService: CoinsDataFetchable {
-  @Published var coins: [CoinModel] = []
+  @Published var coins: [CoinModel]?
+  
+  var coinsValue: Published<[CoinModel]?> {
+    return _coins
+  }
+  
+  var coinsPublisher: Published<[CoinModel]?>.Publisher {
+    return $coins
+  }
+  
   private var coinSubscription = Set<AnyCancellable>()
   
   init() {

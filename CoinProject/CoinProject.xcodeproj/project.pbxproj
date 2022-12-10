@@ -43,7 +43,6 @@
 		86B3BC4A2940BECB00C47F22 /* CoinDetailDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B3BC492940BECB00C47F22 /* CoinDetailDataService.swift */; };
 		86B3BC4C2940BEDA00C47F22 /* CoinDetailDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B3BC4B2940BEDA00C47F22 /* CoinDetailDataProvider.swift */; };
 		86DC95762940D2D700EBA681 /* DetailChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95752940D2D700EBA681 /* DetailChartView.swift */; };
-		86DC95792940EAC800EBA681 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 86DC95782940EAC800EBA681 /* SwiftSoup */; };
 		86DC957B29412EAE00EBA681 /* UIApplicaion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC957A29412EAE00EBA681 /* UIApplicaion.swift */; };
 		86DC95822941D99300EBA681 /* FavoriteCoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95812941D99300EBA681 /* FavoriteCoinDataService.swift */; };
 /* End PBXBuildFile section */
@@ -95,7 +94,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				86B3BC472940BBDF00C47F22 /* Kingfisher in Frameworks */,
-				86DC95792940EAC800EBA681 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +248,6 @@
 		86B3BC22293FD15D00C47F22 /* DetailCoinView */ = {
 			isa = PBXGroup;
 			children = (
-				86B3BC312940AF3000C47F22 /* CoinImageView */,
 				86B3BC23293FD16A00C47F22 /* DetailCoinView.swift */,
 				86B3BC25293FD17700C47F22 /* DetailCoinViewModel.swift */,
 			);
@@ -264,13 +261,6 @@
 				86B3BC4B2940BEDA00C47F22 /* CoinDetailDataProvider.swift */,
 			);
 			path = CoinDetailDataService;
-			sourceTree = "<group>";
-		};
-		86B3BC312940AF3000C47F22 /* CoinImageView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CoinImageView;
 			sourceTree = "<group>";
 		};
 		86DC957D2941D69A00EBA681 /* CoreDataService */ = {
@@ -300,7 +290,6 @@
 			name = CoinProject;
 			packageProductDependencies = (
 				86B3BC462940BBDF00C47F22 /* Kingfisher */,
-				86DC95782940EAC800EBA681 /* SwiftSoup */,
 			);
 			productName = CoinProject;
 			productReference = 86B3BBD4293FAB8900C47F22 /* CoinProject.app */;
@@ -332,7 +321,6 @@
 			mainGroup = 86B3BBCB293FAB8900C47F22;
 			packageReferences = (
 				86B3BC452940BBDF00C47F22 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				86DC95772940EAC800EBA681 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = 86B3BBD5293FAB8900C47F22 /* Products */;
 			projectDirPath = "";
@@ -605,14 +593,6 @@
 				kind = branch;
 			};
 		};
-		86DC95772940EAC800EBA681 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -620,11 +600,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 86B3BC452940BBDF00C47F22 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		86DC95782940EAC800EBA681 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 86DC95772940EAC800EBA681 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 

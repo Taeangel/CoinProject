@@ -25,14 +25,15 @@ class MainCoinViewModel: ObservableObject {
   
   private func addSubscribers() {
     
-    coinDataService.$coins
+    coinDataService.coinsPublisher
       .sink { [weak self] returnedcoins in
-        self?.coins = returnedcoins
+        guard let self = self else { return }
+        self.coins = returnedcoins ?? []
       }
       .store(in: &cancellalbes)
     
     $searchText
-      .combineLatest(coinsDataService.$coins)
+      .combineLatest(coinsDataService.coinsPublisher)
       .map(filterCoins)
       .sink { [weak self] returnedCoins in
         guard let self = self else { return }
@@ -62,19 +63,19 @@ class MainCoinViewModel: ObservableObject {
     }
   }
   
-  private func filterCoins(text: String, coins: [CoinModel]) -> [CoinModel] {
+  private func filterCoins(text: String, coins: [CoinModel]?) -> [CoinModel] {
     guard !text.isEmpty else {
-      return coins
+      return coins ?? []
     }
     
     let lowercasedText = text.lowercased()
     
-    let filteredCoins = coins.filter { coin -> Bool in
+    let filteredCoins = coins?.filter { coin -> Bool in
       return coin.name.lowercased().contains(lowercasedText) ||
       coin.symbol.lowercased().contains(lowercasedText) ||
       coin.id.lowercased().contains(lowercasedText)
     }
-    return filteredCoins
+    return filteredCoins ?? []
   }
 }
 

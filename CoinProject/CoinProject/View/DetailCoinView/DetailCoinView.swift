@@ -26,7 +26,6 @@ struct DetailCoinView: View {
       
       webSiteSection
       
-      Text(vm.newsTitle ?? "loading")
       Spacer()
     }
   }

@@ -44,7 +44,7 @@ extension MainView {
     },
            label: {
       Text(
-        showFavoriteCoin ? "toAllCoin" : "toFavoriteCoin"
+        showFavoriteCoin ? "toCoin" : "toMyCoin"
       )
     })
   }
@@ -93,5 +93,4 @@ extension MainView {
     }
     .listStyle(PlainListStyle())
   }
-  
 }

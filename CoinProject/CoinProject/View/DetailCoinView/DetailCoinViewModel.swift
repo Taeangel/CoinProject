@@ -6,19 +6,18 @@
 //
 
 import Foundation
-import SwiftSoup
 import Combine
 
 class DetailCoinViewModel: ObservableObject {
   
   @Published var coin: CoinModel
-  @Published var websiteURL: String? = nil
+  @Published var websiteURL: String?
   @Published var currentPrice: String?
   @Published var marketCap: String?
   @Published var lowPrice: String?
   @Published var highPrice: String?
   
-  let coinDetailService: CoinDetailDataService
+  let coinDetailService: CoinDetailDataFetchable
   private var cancellables = Set<AnyCancellable>()
   
   init(coin: CoinModel) {
@@ -28,7 +27,7 @@ class DetailCoinViewModel: ObservableObject {
   }
   
   private func addSubscriptions() {
-    coinDetailService.$coinDetail
+    coinDetailService.coinDetailPublisher
       .receive(on: DispatchQueue.main)
       .sink { [weak self] returnedCoinDetail in
         guard let self = self else { return }
