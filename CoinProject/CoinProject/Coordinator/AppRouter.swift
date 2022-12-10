@@ -25,7 +25,7 @@ enum coinAppRouter: NavigationRouter {
   func view() -> some View {
     switch self {
     case .main:
-      MainView(vm: MainCoinViewModel(coinDataService: CoinsDataService()))
+      MainView(vm: MainCoinViewModel(coinDataService: CoinsDataService(), favoriteCoinDataService: FavoriteCoinDataService()))
     case .detail(let coin):
       DetailCoinView(coin: coin)
     }

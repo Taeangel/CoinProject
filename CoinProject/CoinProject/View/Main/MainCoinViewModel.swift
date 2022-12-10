@@ -14,10 +14,11 @@ class MainCoinViewModel: ObservableObject {
   @Published var favoriteCoins: [CoinModel] = []
   
   private var cancellalbes = Set<AnyCancellable>()
-  private let favoriteCoinDataService = FavoriteCoinDataService()
+  private let favoriteCoinDataService: FavoriteCoinDataServiceFetchable
   private let coinDataService: CoinsDataFetchable
   
-  init(coinDataService: CoinsDataFetchable) {
+  init(coinDataService: CoinsDataFetchable, favoriteCoinDataService: FavoriteCoinDataServiceFetchable) {
+    self.favoriteCoinDataService = favoriteCoinDataService
     self.coinDataService = coinDataService
     addSubscribers()
   }
@@ -41,7 +42,7 @@ class MainCoinViewModel: ObservableObject {
       .store(in: &cancellalbes)
     
     $coins
-      .combineLatest(favoriteCoinDataService.$saveEntities)
+      .combineLatest(favoriteCoinDataService.savedEntitiesPublisher)
       .map (mapFavoriteCoins)
       .sink { [weak self] returnerCoin in
         self?.favoriteCoins = returnerCoin

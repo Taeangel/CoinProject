@@ -8,13 +8,29 @@
 import Foundation
 import CoreData
 
-class FavoriteCoinDataService {
+protocol FavoriteCoinDataServiceFetchable {
+  func updateFavoriteCoin(coin: CoinModel)
+  var savedEntities: [FavoriteCoin] { get }
+  var savedEntitiesValue: Published<[FavoriteCoin]> { get }
+  var savedEntitiesPublisher: Published<[FavoriteCoin]>.Publisher { get }
+}
+
+class FavoriteCoinDataService: FavoriteCoinDataServiceFetchable {
+  
+  @Published var savedEntities: [FavoriteCoin] = []
+  
+  var savedEntitiesValue: Published<[FavoriteCoin]> {
+    return _savedEntities
+  }
+  
+  var savedEntitiesPublisher: Published<[FavoriteCoin]>.Publisher {
+    return $savedEntities
+  }
+  
   
   private let container: NSPersistentContainer
   private let containerName: String = "FavoriteCoinContainer"
   private let entityName: String = "FavoriteCoin"
-  
-  @Published var saveEntities: [FavoriteCoin] = []
   
   init() {
     container = NSPersistentContainer(name: containerName)
@@ -27,7 +43,7 @@ class FavoriteCoinDataService {
   }
 
     func updateFavoriteCoin(coin: CoinModel) {
-      if let entity = saveEntities.first(where: { $0.coinID == coin.id }) {
+      if let entity = savedEntities.first(where: { $0.coinID == coin.id }) {
         delete(entity: entity)
       } else {
         add(coin: coin)
@@ -38,7 +54,7 @@ class FavoriteCoinDataService {
     let request = NSFetchRequest<FavoriteCoin>(entityName: entityName)
     
     do {
-      saveEntities = try container.viewContext.fetch(request)
+      savedEntities = try container.viewContext.fetch(request)
     } catch let error {
       print("Error fetching Portfolio Entities \(error)")
     }

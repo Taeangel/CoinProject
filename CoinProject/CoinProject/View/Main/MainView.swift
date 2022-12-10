@@ -33,7 +33,7 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    MainView(vm: MainCoinViewModel(coinDataService: CoinsDataService()))
+    MainView(vm: MainCoinViewModel(coinDataService: CoinsDataService(), favoriteCoinDataService: FavoriteCoinDataService()))
   }
 }
 
