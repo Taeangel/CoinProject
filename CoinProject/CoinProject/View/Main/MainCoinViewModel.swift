@@ -15,11 +15,10 @@ class MainCoinViewModel: ObservableObject {
   
   private var cancellalbes = Set<AnyCancellable>()
   private let favoriteCoinDataService = FavoriteCoinDataService()
-  private let coinsDataService = CoinsDataService()
-  private let coinDataService = CoinsDataService()
+  private let coinDataService: CoinsDataFetchable
   
-  
-  init(coinsDataService: CoinsDataFetchable) {
+  init(coinDataService: CoinsDataFetchable) {
+    self.coinDataService = coinDataService
     addSubscribers()
   }
   
@@ -33,7 +32,7 @@ class MainCoinViewModel: ObservableObject {
       .store(in: &cancellalbes)
     
     $searchText
-      .combineLatest(coinsDataService.coinsPublisher)
+      .combineLatest(coinDataService.coinsPublisher)
       .map(filterCoins)
       .sink { [weak self] returnedCoins in
         guard let self = self else { return }
