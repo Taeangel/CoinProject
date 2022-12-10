@@ -9,12 +9,24 @@ import Foundation
 import Combine
 
 protocol CoinDetailDataFetchable {
+  var coinDetail: CoinDetailModel? { get }
+  var coinDetailValue: Published<CoinDetailModel?> { get }
+  var coinDetailPublisher: Published<CoinDetailModel?>.Publisher { get }
   func getCoin()
-  var coin: CoinModel { get }
 }
 
 class CoinDetailDataService: CoinDetailDataFetchable {
+  
   @Published var coinDetail: CoinDetailModel?
+  
+  var coinDetailValue: Published<CoinDetailModel?> {
+    return _coinDetail
+  }
+  
+  var coinDetailPublisher: Published<CoinDetailModel?>.Publisher {
+    return  $coinDetail
+  }
+  
   let coin: CoinModel
   private var coinSubscription = Set<AnyCancellable>()
   
