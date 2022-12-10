@@ -68,7 +68,6 @@ struct CoinModel: Identifiable, Codable, ImageDownloadableModel, SevenDaysHaveab
     case priceChangePercentage24HInCurrency = "price_change_percentage_24h_in_currency"
   }
   
-  
   func updateHoldings() -> CoinModel {
     return CoinModel(id: id,
                      symbol: symbol,

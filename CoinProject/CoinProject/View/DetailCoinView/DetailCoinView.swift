@@ -18,24 +18,16 @@ struct DetailCoinView: View {
   
   var body: some View {
     VStack {
-      HStack {
-        KFImage(vm.coinDetailService.coinDetail?.imageURL)
-          .frame(maxWidth: .infinity, alignment: .leading)
-     
-        Button(action: {
-          coordinator.pop()
-        },
-               label: {
-          Text("백버튼입니다.")
-        })
-       
-      }
+      headerView
       
       DetailChartView(sevenDaysHaveModel: vm.coin)
       
       infoSection
       
       webSiteSection
+      
+      Text(vm.newsTitle ?? "loading")
+      Spacer()
     }
   }
 }
@@ -47,6 +39,21 @@ struct DetailCoinView_Previews: PreviewProvider {
 }
 
 extension DetailCoinView {
+  
+  private var headerView: some View {
+    HStack {
+      Button(action: {
+        coordinator.pop()
+      },
+             label: {
+         Text("Back")
+      })
+      
+      KFImage(vm.coinDetailService.coinDetail?.imageURL)
+        .frame(maxWidth: .infinity, alignment: .trailing)
+    }
+  }
+  
   private var webSiteSection: some View {
     VStack(alignment: .leading, spacing: 101) {
       if let websiteString = vm.websiteURL, let url = URL(string: websiteString) {
