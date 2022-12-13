@@ -16,6 +16,7 @@ class DetailCoinViewModel: ObservableObject {
   @Published var marketCap: String?
   @Published var lowPrice: String?
   @Published var highPrice: String?
+  @Published var description: String?
   
   let coinDetailService: CoinDetailDataFetchable
   private var cancellables = Set<AnyCancellable>()
@@ -32,6 +33,7 @@ class DetailCoinViewModel: ObservableObject {
       .sink { [weak self] returnedCoinDetail in
         guard let self = self else { return }
         self.websiteURL = returnedCoinDetail?.links?.homepage?.first
+        self.description = returnedCoinDetail?.welcomeDescription?.en
       }
       .store(in: &cancellables)
     
@@ -42,6 +44,7 @@ class DetailCoinViewModel: ObservableObject {
         self.marketCap = returnedCoinModel.marketCap?.formattedWithAbbreviations()
         self.lowPrice = returnedCoinModel.minPrice.asCurrencyWith2Decimals()
         self.highPrice = returnedCoinModel.maxPrice.asCurrencyWith2Decimals()
+        
       }
       .store(in: &cancellables)
   }

@@ -25,6 +25,9 @@ struct DetailCoinView: View {
       infoSection
       
       webSiteSection
+        .padding()
+      
+      descriptionSection
       
       Spacer()
     }
@@ -81,6 +84,17 @@ extension DetailCoinView {
         Text("highPrice: \(vm.highPrice ?? "")")
           .foregroundColor(Color.theme.secondaryText)
           .font(.callout)
+      }
+    }
+  }
+  
+  private var descriptionSection: some View {
+    ZStack {
+      if let coinDescription = vm.description, !coinDescription.isEmpty {
+          Text(coinDescription)
+            .lineLimit(7)
+            .font(.callout)
+            .foregroundColor(Color.theme.secondaryText)
       }
     }
   }

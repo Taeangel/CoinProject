@@ -107,6 +107,7 @@ struct CoinDetailModel: Codable {
   let id, symbol, name: String?
   let blockTimeInMinutes: Int?
   let hashingAlgorithm: String?
+  let welcomeDescription: Description?
   let image: CoinImage?
   let links: Links?
   
@@ -114,6 +115,7 @@ struct CoinDetailModel: Codable {
     case id, symbol, name
     case blockTimeInMinutes = "block_time_in_minutes"
     case hashingAlgorithm = "hashing_algorithm"
+    case welcomeDescription = "description"
     case links
     case image
   }
@@ -143,3 +145,6 @@ struct Links: Codable {
   }
 }
 
+struct Description: Codable {
+  let en: String
+}
