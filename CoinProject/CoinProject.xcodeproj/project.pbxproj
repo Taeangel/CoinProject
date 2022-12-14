@@ -151,6 +151,7 @@
 				86B3BBF0293FAD0000C47F22 /* NavigationRouter.swift */,
 				86B3BBEE293FACD600C47F22 /* Coordinator.swift */,
 				86B3BBF2293FAD1A00C47F22 /* AppRouter.swift */,
+				86CFDB1D294A9A6C0088EF64 /* CacheManager */,
 				86CFDAE6294A69F40088EF64 /* LocalFileManager */,
 				86DC957D2941D69A00EBA681 /* CoreDataService */,
 				86B3BC0A293FB40D00C47F22 /* Models */,
@@ -211,7 +212,6 @@
 				86CFDAEE294A7BEC0088EF64 /* ImageProvider.swift */,
 				86B3BC11293FC10D00C47F22 /* CoinError.swift */,
 				86B3BC15293FC15300C47F22 /* ErrorUtility.swift */,
-				86CFDAF0294A7CE90088EF64 /* CacheManager.swift */,
 			);
 			path = NetworkServiceHelper;
 			sourceTree = "<group>";
@@ -294,6 +294,14 @@
 				86CFDAE9294A6DE40088EF64 /* ImageViewModel.swift */,
 			);
 			path = ImageView;
+			sourceTree = "<group>";
+		};
+		86CFDB1D294A9A6C0088EF64 /* CacheManager */ = {
+			isa = PBXGroup;
+			children = (
+				86CFDAF0294A7CE90088EF64 /* CacheManager.swift */,
+			);
+			path = CacheManager;
 			sourceTree = "<group>";
 		};
 		86DC957D2941D69A00EBA681 /* CoreDataService */ = {

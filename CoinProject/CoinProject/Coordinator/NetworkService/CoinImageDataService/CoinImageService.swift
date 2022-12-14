@@ -15,8 +15,8 @@ class CoinImageService {
 
   private var coinSubscription: AnyCancellable?
   private var coinURL: URL
-  private let fileManager = LocalFileManager.instance
-  private let cacheManager = CacheManager.instance
+  private let fileManager = LocalFileManager()
+  private let cacheManager = CacheManager()
   private var folerName = "coin_images"
   private let imageName: String
   private let imageDownloader: ImageDownloadable

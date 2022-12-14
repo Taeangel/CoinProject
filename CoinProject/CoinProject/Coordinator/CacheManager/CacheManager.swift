@@ -8,9 +8,6 @@
 import SwiftUI
 
 class CacheManager {
-  static let instance = CacheManager()
-  private init() {}
-  
   var photoCache: NSCache<NSString, UIImage> = {
     var cache = NSCache<NSString, UIImage>()
     cache.countLimit = 200
