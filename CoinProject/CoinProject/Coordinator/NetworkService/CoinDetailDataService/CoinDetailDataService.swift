@@ -18,7 +18,7 @@ protocol CoinDetailDataFetchable {
 class CoinDetailDataService: CoinDetailDataFetchable {
   
   @Published var coinDetail: CoinDetailModel?
-  
+  		
   var coinDetailValue: Published<CoinDetailModel?> {
     return _coinDetail
   }
@@ -36,7 +36,7 @@ class CoinDetailDataService: CoinDetailDataFetchable {
   }
   
   func getCoin() {
-    Provider.shared.getCoin(coin: coin)
+    Provider.shared.getCoin(url: coin.coingeckoCoinDetail)
       .receive(on: DispatchQueue.main)
       .sink(receiveCompletion: Provider.shared.handleCompletion) { [weak self] returnCoins in
         self?.coinDetail = returnCoins

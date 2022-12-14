@@ -12,7 +12,13 @@ struct Provider {
   static let shared = Provider()
   private init() {}
   
-  func requestPublisher<T: Codable>(_ request: URLRequest) -> AnyPublisher<T, CoinError> {
+  func getCoin<T: Codable>(url: URL) -> AnyPublisher<T, CoinError> {
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+    return requestPublisher(request)
+  }
+  
+  private func requestPublisher<T: Codable>(_ request: URLRequest) -> AnyPublisher<T, CoinError> {
     URLSession.shared.dataTaskPublisher(for: request)
       .mapError { .network(error: $0) }
       .flatMap { self.requestDecoder(data: $0.data) }
@@ -35,8 +41,6 @@ struct Provider {
     }
   }
 }
-
-
 
 
 

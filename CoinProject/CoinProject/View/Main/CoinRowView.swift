@@ -48,7 +48,7 @@ extension CoinRowView {
   
   private var leftColumn: some View {
     HStack(spacing: 0) {
-      ImageView(url: coin)
+      ImageView(coin: coin)
         .frame(width: 30)
       
       Text(coin.symbol.uppercased())

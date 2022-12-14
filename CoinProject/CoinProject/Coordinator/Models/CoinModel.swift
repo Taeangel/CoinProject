@@ -13,6 +13,7 @@ import Foundation
 
 protocol ImageDownloadableModel {
   var imageURL: URL { get }
+  var id: String { get }
 }
 
 protocol SevenDaysHaveable {
