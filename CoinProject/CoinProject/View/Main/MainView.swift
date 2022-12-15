@@ -19,7 +19,7 @@ struct MainView: View {
       dataView.padding(.leading)
       
       SearchBarView(seachText: $vm.searchText)
-
+      
       changefavoriteToButton
       
       if showFavoriteCoin {
@@ -66,23 +66,23 @@ extension MainView {
   
   private var allCoinsList: some View {
     List(vm.coins) { coin in
-     
-        HStack {
-          CoinRowView(coin: coin)
-            .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
-            .onTapGesture {
-              coordinator.show(.detail(coin))
+      
+      HStack {
+        CoinRowView(coin: coin)
+          .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+          .onTapGesture {
+            coordinator.show(.detail(coin))
+          }
+          .onLongPressGesture {
+            vm.updataFavoriteCoin(coin: coin)
+          }
+          .onAppear {
+            if vm.coins.last == coin {
+              vm.coinDataService.getCoins(perPage: page)
+              page += 1
             }
-            .onLongPressGesture {
-              vm.updataFavoriteCoin(coin: coin)
-            }
-            .onAppear {
-              if vm.coins.last == coin {
-                vm.coinDataService.getCoins(perPage: page)
-                page += 1
-              }
-            }
-        }
+          }
+      }
     }
     .listStyle(PlainListStyle())
   }
