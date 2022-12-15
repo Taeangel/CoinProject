@@ -15,7 +15,7 @@ class MainCoinViewModel: ObservableObject {
   
   private var cancellalbes = Set<AnyCancellable>()
   private let favoriteCoinDataService: FavoriteCoinDataServiceFetchable
-  private let coinDataService: CoinsDataFetchable
+  let coinDataService: CoinsDataFetchable
   
   init(coinDataService: CoinsDataFetchable, favoriteCoinDataService: FavoriteCoinDataServiceFetchable) {
     self.favoriteCoinDataService = favoriteCoinDataService
@@ -28,7 +28,7 @@ class MainCoinViewModel: ObservableObject {
     coinDataService.coinsPublisher
       .sink { [weak self] returnedcoins in
         guard let self = self else { return }
-        self.coins = returnedcoins ?? []
+        self.coins = returnedcoins
       }
       .store(in: &cancellalbes)
     

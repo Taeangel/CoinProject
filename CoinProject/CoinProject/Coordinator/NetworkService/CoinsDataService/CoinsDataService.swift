@@ -9,41 +9,35 @@ import Foundation
 import Combine
 
 protocol CoinsDataFetchable {
-  func getCoins()
-  var coins: [CoinModel]? { get }
-  var coinsValue: Published<[CoinModel]?> { get }
-  var coinsPublisher: Published<[CoinModel]?>.Publisher { get }
+  func getCoins(perPage: Int)
+  var coins: [CoinModel] { get }
+  var coinsValue: Published<[CoinModel]> { get }
+  var coinsPublisher: Published<[CoinModel]>.Publisher { get }
 }
 
 class CoinsDataService: CoinsDataFetchable {
-  @Published var coins: [CoinModel]?
+  @Published var coins: [CoinModel]
   
-  var coinsValue: Published<[CoinModel]?> {
+  var coinsValue: Published<[CoinModel]> {
     return _coins
   }
   
-  var coinsPublisher: Published<[CoinModel]?>.Publisher {
+  var coinsPublisher: Published<[CoinModel]>.Publisher {
     return $coins
-  }
-  
-  var coingeckoUrl: URL {
-    guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=150&page=1&sparkline=true&price_change_percentage=24h") else {
-      return URL(fileURLWithPath: "")
-    }
-    return url
   }
   
   private var coinSubscription = Set<AnyCancellable>()
   
   init() {
-    getCoins()
+    self.coins = []
+    getCoins(perPage: 1)
   }
   
-  func getCoins() {
-    Provider.shared.requestPublisher(CoinRouter.getCoins().asURLRequest())
+  func getCoins(perPage: Int) {
+    Provider.shared.requestPublisher(CoinRouter.getCoins(per_page: perPage).asURLRequest())
       .receive(on: DispatchQueue.main)
       .sink(receiveCompletion: Provider.shared.handleCompletion) { [weak self] returnCoins in
-        self?.coins = returnCoins
+        self?.coins += returnCoins
       }
       .store(in: &coinSubscription)
   }

@@ -11,6 +11,7 @@ struct MainView: View {
   @ObservedObject var vm: MainCoinViewModel
   @EnvironmentObject var coordinator: Coordinator<coinAppRouter>
   @State private var showFavoriteCoin: Bool = false
+  @State private var page: Int = 2
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -64,8 +65,8 @@ extension MainView {
   }
   
   private var allCoinsList: some View {
-    List {
-      ForEach(vm.coins) { coin in
+    List(vm.coins) { coin in
+     
         HStack {
           CoinRowView(coin: coin)
             .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
@@ -75,8 +76,13 @@ extension MainView {
             .onLongPressGesture {
               vm.updataFavoriteCoin(coin: coin)
             }
+            .onAppear {
+              if vm.coins.last == coin {
+                vm.coinDataService.getCoins(perPage: page)
+                page += 1
+              }
+            }
         }
-      }
     }
     .listStyle(PlainListStyle())
   }
@@ -92,5 +98,11 @@ extension MainView {
       }
     }
     .listStyle(PlainListStyle())
+  }
+}
+
+extension CoinModel: Equatable {
+  static func == (lhs: CoinModel, rhs: CoinModel) -> Bool {
+    return lhs.id == rhs.id
   }
 }
