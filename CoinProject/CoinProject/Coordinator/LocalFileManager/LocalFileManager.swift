@@ -24,7 +24,6 @@ class LocalFileManager {
     } catch let error {
       print("saving image \(error) imageName: \(imageName)" )
     }
-    
   }
   
   func getImage(imageName: String, folderName: String) -> UIImage? {

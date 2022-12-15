@@ -45,6 +45,8 @@
 		86CFDAEF294A7BEC0088EF64 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CFDAEE294A7BEC0088EF64 /* ImageProvider.swift */; };
 		86CFDAF1294A7CE90088EF64 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CFDAF0294A7CE90088EF64 /* CacheManager.swift */; };
 		86CFDB1C294A91BA0088EF64 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 86CFDB1B294A91BA0088EF64 /* Kingfisher */; };
+		86CFDB3F294B797F0088EF64 /* CoinRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CFDB3E294B797F0088EF64 /* CoinRouter.swift */; };
+		86CFDB42294B7C570088EF64 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 86CFDB41294B7C570088EF64 /* Alamofire */; };
 		86DC95762940D2D700EBA681 /* DetailChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95752940D2D700EBA681 /* DetailChartView.swift */; };
 		86DC957B29412EAE00EBA681 /* UIApplicaion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC957A29412EAE00EBA681 /* UIApplicaion.swift */; };
 		86DC95822941D99300EBA681 /* FavoriteCoinDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DC95812941D99300EBA681 /* FavoriteCoinDataService.swift */; };
@@ -89,6 +91,7 @@
 		86CFDAE9294A6DE40088EF64 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		86CFDAEE294A7BEC0088EF64 /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		86CFDAF0294A7CE90088EF64 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		86CFDB3E294B797F0088EF64 /* CoinRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRouter.swift; sourceTree = "<group>"; };
 		86DC95752940D2D700EBA681 /* DetailChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailChartView.swift; sourceTree = "<group>"; };
 		86DC957A29412EAE00EBA681 /* UIApplicaion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicaion.swift; sourceTree = "<group>"; };
 		86DC95812941D99300EBA681 /* FavoriteCoinDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoinDataService.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86CFDB1C294A91BA0088EF64 /* Kingfisher in Frameworks */,
+				86CFDB42294B7C570088EF64 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +216,7 @@
 				86CFDAEE294A7BEC0088EF64 /* ImageProvider.swift */,
 				86B3BC11293FC10D00C47F22 /* CoinError.swift */,
 				86B3BC15293FC15300C47F22 /* ErrorUtility.swift */,
+				86CFDB3E294B797F0088EF64 /* CoinRouter.swift */,
 			);
 			path = NetworkServiceHelper;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 			name = CoinProject;
 			packageProductDependencies = (
 				86CFDB1B294A91BA0088EF64 /* Kingfisher */,
+				86CFDB41294B7C570088EF64 /* Alamofire */,
 			);
 			productName = CoinProject;
 			productReference = 86B3BBD4293FAB8900C47F22 /* CoinProject.app */;
@@ -362,6 +368,7 @@
 			mainGroup = 86B3BBCB293FAB8900C47F22;
 			packageReferences = (
 				86CFDB1A294A91BA0088EF64 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				86CFDB40294B7C570088EF64 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 86B3BBD5293FAB8900C47F22 /* Products */;
 			projectDirPath = "";
@@ -419,6 +426,7 @@
 				86B3BC1C293FC21600C47F22 /* PreviewProvider.swift in Sources */,
 				86DC957B29412EAE00EBA681 /* UIApplicaion.swift in Sources */,
 				86B3BBF9293FAF5200C47F22 /* Date.swift in Sources */,
+				86CFDB3F294B797F0088EF64 /* CoinRouter.swift in Sources */,
 				86B3BC14293FC12900C47F22 /* Error.swift in Sources */,
 				86CFDAEA294A6DE40088EF64 /* ImageViewModel.swift in Sources */,
 				86B3BBE8293FAC4900C47F22 /* SceneDelegate.swift in Sources */,
@@ -637,6 +645,14 @@
 				kind = branch;
 			};
 		};
+		86CFDB40294B7C570088EF64 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -644,6 +660,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 86CFDB1A294A91BA0088EF64 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		86CFDB41294B7C570088EF64 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 86CFDB40294B7C570088EF64 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 

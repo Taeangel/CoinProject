@@ -40,7 +40,7 @@ class CoinsDataService: CoinsDataFetchable {
   }
   
   func getCoins() {
-    Provider.shared.getCoin(url: coingeckoUrl)
+    Provider.shared.requestPublisher(CoinRouter.getCoins().asURLRequest())
       .receive(on: DispatchQueue.main)
       .sink(receiveCompletion: Provider.shared.handleCompletion) { [weak self] returnCoins in
         self?.coins = returnCoins
